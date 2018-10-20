@@ -1,18 +1,27 @@
 % ----------------------------------------------------------------------------------------------
-% Vorlage für Dokumentation auf LaTeX-Basis im Projekt InfoStuDi
+% Vorlage fÃ¼r Dokumentation auf LaTeX-Basis im Projekt InfoStuDi
 % --------------------------------------------------------------------------------------------
+% utf-8 verwenden, aber der Vorlage vorgaukeln, ansinew wÃ¼rde verwendet werden. Quick-fix um mit
+% Manfred Brills mb.sty kompatibel zu sein
+\makeatletter
+\newcommand{\dontusepackage}[2][]{%
+  \@namedef{ver@#2.sty}{9999/12/31}%
+  \@namedef{opt@#2.sty}{#1}}
+\makeatother
+\usepackage[utf8]{inputenc}
+\dontusepackage[ansinew]{inputenc}
 \usepackage{mb}
 \usepackage{mbmath}
 \usepackage{textcomp}
-% Array-Paket für mehr Kontrolle der Tabellen
+% Array-Paket fÃ¼r mehr Kontrolle der Tabellen
 \usepackage{array}
-% ifthen für Ein- und Ausblenden der Lösungen.
+% ifthen fÃ¼r Ein- und Ausblenden der LÃ¶sungen.
 \usepackage{ifthen}
-% Paket für Postscript Pi-Fonts
+% Paket fÃ¼r Postscript Pi-Fonts
 \usepackage{pifont}
 % PSTricks
 %\usepackage{pstricks}
-% Paket für das einfache Umdefinieren von Listen
+% Paket fÃ¼r das einfache Umdefinieren von Listen
 \usepackage[shortlabels]{enumitem}
 % Alphabetischer Index
 \usepackage{imakeidx}
@@ -20,13 +29,13 @@
 % Header und Footer mit KomaScript
 \usepackage[automark, headsepline]{scrlayer-scrpage}
 %
-% Header für Werkzeuge, Begriffe aus dem Software-Management
+% Header fÃ¼r Werkzeuge, Begriffe aus dem Software-Management
 \input{variablen}
 % Farben
 \input{colors}
 % Koordinatensysteme und andere Makros
 \input{coordinateSystems}
-% Standardverzeichnis für das Basisverzeichnis der Bilder
+% Standardverzeichnis fÃ¼r das Basisverzeichnis der Bilder
 %
 \newcommand{\imagePath}{./images}
 %
@@ -47,10 +56,10 @@
 \ohead[]{\pagemark}
 \chead{}
 \pagestyle{scrheadings}
-% Abstände zwischen Caption und Bild/Tabelle
+% AbstÃ¤nde zwischen Caption und Bild/Tabelle
 \setlength\abovecaptionskip          {0.4em}
 \setlength\belowcaptionskip          {0.2em}
-% Anteil der Grafiken höher auf jeder Seite!
+% Anteil der Grafiken hÃ¶her auf jeder Seite!
 \renewcommand{\textfraction}{0.001}
 \renewcommand{\topfraction}{0.99}
 % Literatur-Stil
@@ -66,10 +75,10 @@
 \lstset{basicstyle = \ttfamily \small}
 %% listings mit listings.sty
 %
-% Kommando für den Flattersatz bei nebeneinander liegenden Abbildungen
+% Kommando fÃ¼r den Flattersatz bei nebeneinander liegenden Abbildungen
 \newcommand{\flatter}{\setlength{\rightskip}{0pt plus 2cm}}
 %
-% Schritte in einer Aufzählung, dafür einen Zähler (schritt) und die Umgebung
+% Schritte in einer AufzÃ¤hlung, dafÃ¼r einen ZÃ¤hler (schritt) und die Umgebung
 % schritte definieren.
 \newcounter{schritt}
 \newenvironment{schritte}%
@@ -78,14 +87,14 @@
 {\usecounter{schritt}\settowidth{\labelwidth}{Schritt 1:}%
 \setlength{\leftmargin}{\labelwidth}\addtolength\leftmargin{\labelsep}%
 \parsep0.0ex\partopsep-0.3ex\itemsep2pt\topsep0.0ex}}{\end{list}}
-% Dateinamen für interne Musterlösungen
+% Dateinamen fÃ¼r interne MusterlÃ¶sungen
 \newcommand{\filename}[1]{%
 \ifthenelse{\boolean{solutions}}{\framebox[50mm]{\parbox{40mm}{\textbf #1}}\vspace{6pt}}{}}
 %   Taste
 \newcommand{\taste}[1]{\small\textsf{#1}\normalsize}
-%   geschützte Namen (NICHT in chapter, section usw. verwenden!)
+%   geschÃ¼tzte Namen (NICHT in chapter, section usw. verwenden!)
 \newcommand{\name}[1]{\textsl{#1}}
-%   Fachbegriffe/Erklärung von Abkürzungen
+%   Fachbegriffe/ErklÃ¤rung von AbkÃ¼rzungen
 \newcommand{\begriff}[1]{\index{#1}\textit{#1}}
 %
 \newcommand{\algorithmus}[2]{%
@@ -116,7 +125,7 @@
 \end{minipage}}
 %
 %   Angabe im Begleittext, was die Studierenden lesen sollen (in einer Box)
-%   Dieses Icon wird für Angaben verwendet, die nicht verpflichtend zu lesen
+%   Dieses Icon wird fÃ¼r Angaben verwendet, die nicht verpflichtend zu lesen
 %   sind. Also "nice-to-have", "wenn sie noch Zeit haben".
 \newcommand{\vertiefen}[1]{%
 \begin{minipage}[b]{2.5cm}
@@ -129,21 +138,21 @@
 \end{minipage}}
 %
 % Jetzt kommt die Definition der Kontrollfrage; die Nummerierung
-% für das ganze erhalten wir mit Hilfe von \item{\kontroll}.
+% fÃ¼r das ganze erhalten wir mit Hilfe von \item{\kontroll}.
 %
-% Ein Counter für die Kontrollfragen. Wir zählen diesen Counter selbst hoch
+% Ein Counter fÃ¼r die Kontrollfragen. Wir zÃ¤hlen diesen Counter selbst hoch
 % mit einem entsprechenden Kommando, das wir in \item verwenden.
 % 1
 \newcounter{kontrollCounter}[section]
 \newcommand{\kontroll}[0]{
     \refstepcounter{kontrollCounter}
-    % Kapitelnummer.Zähler für das Item
+    % Kapitelnummer.ZÃ¤hler fÃ¼r das Item
     \arabic{chapter}.\arabic{kontrollCounter}
     % Das Label ist bis auf weiteres "kontrolle:Kapitelnummer:kontrollcounter
     \label{kontrolle:\arabic{chapter}:\arabic{kontrollCounter}}
 }
 % Jetzt kommt die Definition der Kontrollfrage; die Nummerierung
-% für das ganze erhalten wir mit Hilfe von \item{\kontroll}.
+% fÃ¼r das ganze erhalten wir mit Hilfe von \item{\kontroll}.
 \newcommand{\kontrollfrage}[1]{%
 \begin{minipage}[c]{1.85cm}
 \huge{\ding{46}}%
@@ -153,18 +162,18 @@
 \end{itemize}%
 \end{minipage}}
 %
-% Einblenden von Musterlösungen
+% Einblenden von MusterlÃ¶sungen
 %
-% Schalter für das ein- und ausblenden der Lösungen
+% Schalter fÃ¼r das ein- und ausblenden der LÃ¶sungen
 \newboolean{solutions}
 %
-% Theorem-Umgebung für die Übungsaufgaben
+% Theorem-Umgebung fÃ¼r die Ãœbungsaufgaben
 % Wichtig: alle Attribute einstellen, dann die neue
 % theorem-Umgebung mit newtheorem definieren!
-% Oder, wie hier, durch das Einschließen in {}
+% Oder, wie hier, durch das EinschlieÃŸen in {}
 %
 {
-% Zeilenumbruch bei Aufgaben-Überschrift
+% Zeilenumbruch bei Aufgaben-Ãœberschrift
 \theoremstyle{break}
 % "Normaler" Font im Text
 \theorembodyfont{\normalfont}
@@ -173,30 +182,30 @@
 \newtheorem{auftitle}{Aufgabe}[section]
 }
 %
-% Definition für die Kennzeichnung der Übungsaufgaben
+% Definition fÃ¼r die Kennzeichnung der Ãœbungsaufgaben
 %
 \newcommand{\uebung}{%
 \vspace*{11pt}%
 \begin{tabular}{@{}p{2.25cm}@{}p{11.7cm}}%
-\huge{\ding{45}}&\Large{\textbf{Übungsaufgaben}}%
+\huge{\ding{45}}&\Large{\textbf{Ãœbungsaufgaben}}%
 \end{tabular}%
 }
-% Ein Counter für die Übungsaufgaben. Wir zählen diesen Counter selbst hoch
+% Ein Counter fÃ¼r die Ãœbungsaufgaben. Wir zÃ¤hlen diesen Counter selbst hoch
 % mit einem entsprechenden Kommando, das wir in \item verwenden.
 % 3
 \newcounter{aufgabenCounter}[section]
 \newcommand{\auf}[0]{
     \refstepcounter{aufgabenCounter}
-    % Kapitelnummer.Zähler für das Item
+    % Kapitelnummer.ZÃ¤hler fÃ¼r das Item
     \arabic{chapter}.\arabic{aufgabenCounter}
 }
 % Der Text der Aufgaben steht im Ordner ../Uebungsaufgaben/aufgaben/aufgabenstellungen,
-% so können wir die Dateien aus der Veranstaltung
+% so kÃ¶nnen wir die Dateien aus der Veranstaltung
 % Wahrscheinlichkeitsrechnung und Statistik verwenden; und die neuen
 % Aufgaben gehen in den allgemeinen Fundus ein.
 %
 
-% Umgebungen für Satz, Definition, Beweis, ... . Wir orientieren uns am Mathematik-Buch,
+% Umgebungen fÃ¼r Satz, Definition, Beweis, ... . Wir orientieren uns am Mathematik-Buch,
 % dort gab es diese Umgebungen auch schon. Im Grunde sind das einfach
 % wieder theorem-Umgebungen.
 {
@@ -204,7 +213,7 @@
 \setlength\theorempostskipamount{5pt plus 1pt minus 1pt}
 % "Normaler" Font im Text
 \theorembodyfont{\normalfont}
-% Die Namen sind so gewählt, dass sie kompatibel zu Beamer sind; dann können
+% Die Namen sind so gewÃ¤hlt, dass sie kompatibel zu Beamer sind; dann kÃ¶nnen
 % wir den Text aus Folien kopieren und umgekehrt auch.
 % 4
 \newtheorem{Satz}{Satz}[section]
@@ -222,12 +231,12 @@
 }
 % Text mit Pfad
 \newcommand{\aufgabentext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\auftitle\label{#1}\input{../../uebungsaufgaben/Stochastik/aufgaben/aufgabenstellungen/#1}}
-% Funktion für die Lösungs-Hinweise für eine Aufgabe. Der Text
-% steht analog zu den Übungsaufgaben im Ordner aufgaben/loesungen.
+% Funktion fÃ¼r die LÃ¶sungs-Hinweise fÃ¼r eine Aufgabe. Der Text
+% steht analog zu den Ãœbungsaufgaben im Ordner aufgaben/loesungen.
 \newcommand{\hinweistext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\input{../../Uebungsaufgaben/Stochastik/aufgaben/loesungen/#1}}
 % Und jetzt die Funktionen, die wir im Text aufrufen
 \newcommand{\aufgabe}[1]{\aufgabentext{#1}}
-% Lösungshinweise im Anhang
+% LÃ¶sungshinweise im Anhang
 \newcommand{\hinweis}[1]{\subsubsection*{Aufgabe \ref{#1}} \hinweistext{#1}}
 %
 % Datensatz-Texte und Daten in eigener Datei
@@ -239,7 +248,7 @@
 %
 \newcommand{\randnotiz}[1]{\marginpar{\small{\textbf{#1}}}}
 %
-% Gabelschlüssel als Marginalie und Hinweis auf Praxisbezug
+% GabelschlÃ¼ssel als Marginalie und Hinweis auf Praxisbezug
 \newcommand{\praxisbezug}[0]{\randnotiz{\includegraphics[width=1cm]{\imagePath/Misc/gabel}}}
 %
 % alert aus beamer-Folien zu emph machen
@@ -267,7 +276,7 @@
 \Large{\theSchool{}}%
 \end{titlepage}}
 
-% Titelseite mit zusätzlicher Grafik
+% Titelseite mit zusÃ¤tzlicher Grafik
 %
 % Das obligatorische Argument ist der Titel des Dokuments.
 % Als Default wird das Logo der Stochastik-Veranstaltung als Titelbild
@@ -297,4 +306,4 @@
 \Large{\theProject{}}%
 
 \Large{\theSchool{}}%
-\end{titlepage}} 
+\end{titlepage}}
