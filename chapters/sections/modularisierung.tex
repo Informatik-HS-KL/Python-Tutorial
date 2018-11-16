@@ -1,0 +1,19 @@
+% !TeX root = ../../pythonTutorial.tex
+
+\section{Modularisierung}
+Unter Modularisierung versteht man die Aufteilung des Programmcodes in Modulen. Ein Modul stellt dabei verschiedene Datentypen, Funktionen und Werte bereit. Durch das Auslagern dieser Elementen in Modulen, wird das Projekt besser strukturiert. Zudem wird das Hauptprogramm aufgeräumt, was zu die Leserlichkeit des Quellcodes erhöht.
+
+Bei den Modulen wird zwischen lokalen und globalen Modulen unterschieden. Während lokale Module nur in einem Projekt genutzt werden, können globale Module projektübergreifend verwendet werden. Ein Beispiel für ein globales Modul ist das Modul \texttt{math} der Standartbibliothek, welches mathematische Funktionen und Konstanten zur bereitstellt.
+
+Ob ein Modul lokal oder global ist, hängt vom Speicherort ab. Ein lokales Modul ist in der Regel im Programmverzeichnis oder in einem Unterverzeichnis davon hinterlegt. Ein globales Modul wird in einem bestimmten Verzeichnis der Python-Installation angelegt. Hierzu gehört beispielsweise das Verzeichnis \textit{site-packages}, indem auch einige Module von Drittanbietern installiert werden.
+
+\subsection{Erstellung eines lokalen Moduls}
+
+Zur Erstellung eines lokalen Moduls wird eine Datei \textit{meinModul.py} im Programmverzeichnis angelegt:
+\begin{lstlisting}
+def hallo(fname):
+	print("Hallo " + fname)
+	
+NAME = "Tobias"
+\end{lstlisting}
+Der Inhalt dieser Datei  führt keinerlei Code aus, sondern stellt lediglich eine Funktion und eine Konstante bereit, welche später im Hauptprogramm genutzt werden können.
