@@ -1,43 +1,188 @@
 \section{NumPy}
 
-\subsection{Installation}
+NumPy ist eine Python-Bibliothek für wissenschaftliches Rechnen.
+Sie beinhaltet unter anderem Folgendes:
 
-\begin{verbatim}
-pip install numpy
-\end{verbatim}
+\begin{itemize}
+  \item mächtige $n$-dimensionale Array-Objekte
+  \item ausgeklügelte Funktionen
+  \item Werkzeuge zur Integration von C und Fortran
+  \item Lineare Algebra, Fouriertransformation, Erzeugung von Zufallszahlen
+\end{itemize}
 
-\subsection{Hello World(s)}
+% Zitat: http://www.numpy.org
 
+Um Numpy zu installieren, kann der Befehl \verb!pip install numpy! verwendet
+werden.
+
+\subsection{Arrays}
+
+Der Array-Datentyp von NumPy heißt \verb!numpy.ndarray!. Anders als Pythons
+Listentyp \verb!list! unterstützt \verb!numpy.ndarray! numerische Operationen
+auf Arrays. Die Grundrechenarten werden zwischen zwei Arrays elementweise und
+zwischen Array und \verb!int!/\verb!float! für alle Elemente des Arrays
+durchgeführt.
+
+So kann etwa jeder Wert in einem Array mit den folgenden Anweisungen um drei
+erhöht werden:
 \begin{lstlisting}
->>> import numpy as np
->>>
->>> a = np.array([1,2,3])
->>> b = np.array([4,5,6])
->>>
->>> print(a + 1)
-[2 3 4]
->>> print(a + b)
-[5 7 9]
->>> print(a * 2)
-[10 14 18]
->>> print(a * b)
-[ 4 10 18]
->>>
->>>
->>> print(np.pi)
-3.141592653589793
->>> print(np.e)
-2.718281828459045
->>> print(np.euler_gamma)
-0.5772156649015329
->>> print(np.PINF)
-inf
->>> print(np.NINF)
--inf
->>> print(np.NAN)
-nan
->>> print(np.PZERO)
-0.0
->>> print(np.NZERO)
--0.0
+import numpy as np
+a = np.array([1,2,3])
+a + 3 # [4 5 6]
 \end{lstlisting}
+
+Subtraktion, Multiplikation, Division, Ganzzahldivision und Potenzieren
+funktionieren analog:\footnote{Der Import von \lstinline!numpy! wird der
+Übersichtlichkeit halber nachfolgend ausgelassen.}
+\begin{lstlisting}
+a = np.array([1,2,3])
+a - 3  # [-2 -1  0]
+a * 3  # [3 6 9]
+a / 3  # [0.33333333 0.66666667 1.        ]
+a // 3 # [0 0 1]
+a ** 3 # [ 1  8 27]
+\end{lstlisting}
+
+Zwei Arrays gleicher Länge können elementweise miteinander verknüpft werden:
+\begin{lstlisting}
+a = np.array([1,2,3])
+b = np.array([4,5,6])
+a + b  # [5 7 9]
+a - b  # [-3 -3 -3]
+a * b  # [ 4 10 18]
+a / b  # [0.25 0.4  0.5 ]
+a ** b # [  1  32 729]
+a // b # [0 0 0]
+\end{lstlisting}
+
+Um ein Numpy-Array zu erzeugen, übergibt man ein \lstinline!list!-Objekt an
+\lstinline!np.array()!, dabei wird der in der \lstinline{list} enthaltene
+Datentyp in einem Datentyp von Numpy konvertiert. Mit \lstinline!.dtype.name!
+kann man den Datentyp eines Arrays herausfinden. Anders als bei \lstinline!list!
+müssen sämtliche Elemente eines Arrays den gleichen Typ haben.
+\begin{lstlisting}
+a = np.array([1,2,3])
+a.dtype.name # 'int64'
+b = np.array([1.4,2.5,3.6])
+a.dtype.name # 'float64'
+\end{lstlisting}
+
+Wenn \lstinline!int! und \lstinline!float! gemischt übergeben werden,
+konvertiert Numpy in den Fließkommatyp. Wie viele Bit für einen Integer bzw. ein
+Float zur Verfügung stehen, ist von der Prozessorarchitektur abhängig. Moderne
+Computer unterstüzten in der Regel eine Größe von 64 Bit.
+
+
+\subsection{Konstanten und Funktionen}
+Es stehen für die mathematische Anwendungen auch Konstanten zur Verfügung,
+darunter die Folgenden mit den entsprechenden Werten und Präzisionen mit
+\lstinline!float64!:
+\begin{lstlisting}
+>>> np.pi
+3.141592653589793
+>>> np.e
+2.718281828459045
+>>> np.euler_gamma
+0.5772156649015329
+>>> np.PINF
+inf
+>>> np.NINF
+-inf
+>>> np.NAN
+nan
+>>> np.PZERO
+0.0
+>>> np.NZERO
+-0.0
+>>> np.NAN
+nan
+\end{lstlisting}
+
+\lstinline!np.NZERO! steht für die negative Darstellung der Null bei
+Fließkommazahlen, \lstinline!np.PZERO! für die positive Dartellung.
+
+NumPy unterstützt eine Vielzahl an mathematischen Funktionen, darunter unter
+anderem trigonometrische Funktionen, Rundungs-,
+Summations- und Multiplikationsfunktionen und Funktionen zur Behandlung
+komplexer Zahlen.
+
+Die grundlegenden trigonometrischen Funktionen sind selbsterklärend, sie werden
+elementweise auf das Array angewendet:
+\begin{lstlisting}
+>>> a = np.array([0, np.pi/6, np.pi/4, np.pi/3, np.pi/2])
+>>> np.sin(a)
+[0.         0.5        0.70710678 0.8660254  1.        ]
+>>> np.cos(a)
+[1.00000000e+00 8.66025404e-01 7.07106781e-01 5.00000000e-01
+6.12323400e-17]
+>> np.tan(a)
+[0.00000000e+00, 5.77350269e-01, 1.00000000e+00,
+1.73205081e+00, 1.63312394e+16]
+\end{lstlisting}
+
+Daneben ist auch die Umrechung von Radians in Grad
+\begin{lstlisting}
+>>> a = np.array([0, np.pi/6, np.pi/4, np.pi/3, np.pi/2])
+>>> np.degrees(a)
+[ 0., 30., 45., 60., 90.]
+\end{lstlisting}
+und Grad in Radians möglich:
+\begin{lstlisting}
+>>> a = np.array([ 0, 30, 45, 60, 90])
+>>> np.radians(a)
+[0.         0.52359878 0.78539816 1.04719755 1.57079633]
+\end{lstlisting}
+
+Mit \lstinline!np.around! können sämtliche Werte im Array auf eine bestimmte
+Anzahl von Stellen gerundet werden. Ohne Angabe eines zweiten Arguments wird auf
+kaufmännisch auf die nächste Ganzzahl gerundet,
+\begin{lstlisting}
+>>> a = np.array([1.49, 1.5, 1.51])
+>>> np.round(a)
+[1. 2. 2.]
+\end{lstlisting}
+mit dem optionalen zweiten Argument wird die Anzahl an Nachkommastellen, auf die
+gerundet werden soll, angegeben:
+\begin{lstlisting}
+>>> a = np.array([1.25, 1.53, 1.99])
+>>> np.round(a, 1)
+[1.2, 1.5, 2. ]
+\end{lstlisting}
+
+Um alle Elemente eines Arrays zu aufzusummieren, kann man
+\begin{lstlisting}
+>>> a = np.array([1, 2, 3])
+>>> np.sum(a)
+6
+\end{lstlisting}
+verwenden. Mit
+\begin{lstlisting}
+>>> a = np.array([2, 3, 4])
+>>> np.prod(a)
+24
+\end{lstlisting}
+können die Elemente der Liste miteinander multipliziert werden.
+
+Sollten \lstinline!nan! (not a number) im Array vorkommen können, so kann
+\lstinline!np.nansum! beziehungsweise \lstinline!np.nanprod! verwendet werden.
+Bei \lstinline!np.nansum! werden \lstinline!nan! als \lstinline!0!
+interpretiert,
+\begin{lstlisting}
+>>> a = np.array([np.NAN, 1, 2, 3])
+>>> np.sum(a)
+nan
+>>> np.nansum(a)
+6.0
+\end{lstlisting}
+bei \lstinline!np.nanprod! als \lstinline!1!:
+\begin{lstlisting}
+>>> a = np.array([np.NAN, 2, 3, 4])
+>>> np.prod(a)
+nan
+>>> np.nanprod(a)
+24.0
+\end{lstlisting}
+Das Ergebnis der Addition bzw. Multiplikation ist vom Typ \lstinline!float64!.
+\lstinline!nan! ist ein valider Fließzahlwert, daher werden die restlichen Werte
+in der zu konvertierenden \lstinline!list! von \lstinline!int! zu
+\lstinline!float64! umgewandelt.
