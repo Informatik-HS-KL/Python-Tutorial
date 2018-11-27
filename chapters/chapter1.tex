@@ -1,16 +1,177 @@
 % !TeX root = ../pythonTutorial.tex
-\chapter{Beispiel Kapitel}
+\chapter{Objekte und Klassen}
 
-\label{chapter1:bsp1}
+\label{objundklassen}
+Python ist wie Java eine Objektorientierte Programmiersprache. 
+Das bedeutet, dass in Python fast alles aus Objekten und Klassen besteht.
+Klassen sind Vorlagen, aus denen Objekte generiert werden k{\"o}nnen.
+Dabei enth{\"a}lt die Klasse je nach Verwendungszweck Variablen und Funktionen.
+Ein klassisches Beispiel w{\"a}re die Klasse \glqq Sch{\"u}ler\grqq{}. Jeder Sch{\"u}ler hat einen Namen, aber nicht jeder Sch{\"u}ler hat den gleichen Namen.
+Um dies  Anhand eines Python Programms zu verdeutlichen wird ein neues Programm erstellt
+\begin{lstlisting}
+class Schueler:
+	name = "Name einfuegen"
+\end{lstlisting}
+Mithilfe der oben erstellten Klasse kann man nun verschiedene Objekte erstellen, welche die Variablen und Funktionen der Klasse enthalten.
+\begin{lstlisting}
+class Schueler:
+name = "Name einfuegen"
+schueler1 = Schueler()
+print(schueler1.name)
+\end{lstlisting}
+Ausgabe des Programmcodes:
+\begin{lstlisting}
+	Name einfuegen
+\end{lstlisting}
+Die Variablen der Objekte sind zun{\"a}chst gleich mit denen der Klasse, aus der diese erstellt wurden.
+Allerdings sind die Variablen des erstellten Objekts unabh{\"a}ngig von denen der Klasse. Das bedeutet, dass  man diese auch unabh{\"a}ngig f{\"u}r jedes einzelne Objekt {\"a}ndern kann. Die im obigen Beispiel verwendete Klasse ist in realen Anwendungen  nicht verwendbar, da die Attribute des Objekts von Anfang an festgelegt wurden. Um einen dynamischen Ansatz zu nutzen, sollte man wie im n{\"a}chsten Beispiel vorgehen.
+\begin{lstlisting}
+class Schueler:
+	def __init__(self, name):
+		self.name = name
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.2\textwidth]{\imagePath/logos/python}
-	\caption{Python Logo}
-	\label{chapter1:img:pythonlogo}
-\end{figure}
+schueler1 = Schueler("Patrick")
+schueler2 = Schueler("Sebastian")
+print(schueler1.name)
+print(schueler2.name)
+\end{lstlisting}
+Ausgabe des Programmcodes:
+\begin{lstlisting}
+Patrick
+Sebastian
+\end{lstlisting}
+Jede Klasse hat eine init() Funktion, die immer ausgef{\"u}hrt wird, wenn die Klasse initiiert und ausgef{\"u}hrt wird. Diese Funktion wird verwendet um den Variablen des Objektes einen Wert zu geben.
+Hierbei ist der self Parameter notwendig um die Klasse selbst zu referenzieren und um auf die Variablen der Klasse zugreifen zu k{\"o}nnen. Dieser Parameter ist also notwendig, muss aber nicht self genannt werden, sondern kann einen beliebigen Namen haben. Er wird als erster Parameter bei jeder Funktion angegeben.
+\begin{lstlisting}
+class Schueler:
+	def __init__(self, name):
+			self.name = name
+	
+	def getName(self):
+		print(self.name)
 
-Vergleiche Abbildung \ref{chapter1:img:pythonlogo}.
+schueler1 = Schueler("Patrick")
+schueler2 = Schueler("Sebastian")
+schueler1.getName()
+schueler2.getname()
+\end{lstlisting}
+Ausgabe des Programmcodes: 
+\begin{lstlisting}
+Patrick
+Sebastian
+\end{lstlisting}
+Objekte enthalten die aus den Klassen {\"u}bernommenen Funktionen. Diese Funktionen geh{\"o}ren jetzt dem Objekt und werden Methoden genannt.
+Um Parameter zu modifizieren oder zu l{\"o}schen, k{\"o}nnen einfach die Befehle        objektname.parameter = neuer Wert (modifizieren) und del objektname.parameter (l{\"o}schen) verwendet werden.
+\begin{lstlisting}
+class Schueler:
+def __init__(self, name):
+self.name = name
 
+def getName(self):
+print(self.name)
 
-\input{chapters/sections/section1.tex}
+schueler1 = Schueler("Patrick")
+schueler2 = Schueler("Sebastian")
+schueler1.name = "Lukas"
+schueler1.getName()
+schueler2.getname()
+del schueler2.name
+\end{lstlisting}
+Ausgabe des Programmcodes: 
+\begin{lstlisting}
+Lukas
+Sebastian
+\end{lstlisting}
+Ein weiterer wichtiger Aspekt der Klassen in Python ist die Vererbung und Erg{\"a}nzung einer Klasse.
+\begin{lstlisting}
+class Schueler:
+	def __init__(self, name):
+	self.name = name
+
+	def getName(self):
+	print(self.name)
+
+class Hochschule:
+	def __init__(self, name, matrikelnummer):
+	Schueler..__init__(self, name)
+	self.matrikelnummer = matrikelnummer
+	
+	def getName(self):
+	print(Schueler.getName(self) + ", " + self.matrikelnummer)
+	
+schueler1 = Hochschule("Patrik","1234")
+schueler2 = Hochschule("Sebastian", "1235")
+schueler1.getName()
+schueler2.getname()
+\end{lstlisting}
+Ausgabe des Programmcodes: 
+\begin{lstlisting}
+Patrick, 1234
+Sebastian, 1235
+\end{lstlisting}
+In diesem Beispiel wurde die Klasse Sch{\"u}ler durch die Klasse Hochschule erweitert. Dies geschieht durch das Hinzuf{\"u}gen eines weiteren Attributes (bspw. Matrikelnummer). Dieses Attribut hat dann die Funktion getName abge{\"a}ndert. Die Klasse, von der geerbt wird, kann man entweder mit dem Klassennamen (Schueler) oder mit super referenzieren. Trotz der {\"A}nderung der Funktion getName in der Klasse Hochschule, beh{\"a}lt die Klasse Sch{\"u}ler ihre Funktion.
+
+Zum Schluss bleibt zu erw{\"a}hnen, dass auch komplette Objekte l{\"o}schbar sind. Dies ist mit dem Befehl del objektname m{\"o}glich. Hierbei wird eine Fehlermeldung ausgegeben, da versucht wird, auf das gel{\"o}schte Objekt zuzugreifen.
+\begin{lstlisting}
+class Schueler:
+def __init__(self, name):
+self.name = name
+
+def getName(self):
+print(self.name)
+
+schueler1 = Schueler("Patrick")
+schueler2 = Schueler("Sebastian")
+schueler1.name = "Lukas"
+schueler1.getName()
+schueler2.getname()
+del schueler2.name
+del schueler2
+schueler2.getName()
+\end{lstlisting}
+Fehlermeldung beim Ausf{\"u}hren des Programmcodes:
+\begin{lstlisting}
+Traceback (most recent call last):
+Lukas
+	File"C:/users/Patrick/Desktop/python/objekte
+	_undklassen.py", line 15, in <module>
+Sebastian
+	schueler2.getName()
+NameError: name 'schueler2' is not defined 
+\end{lstlisting}
+\subsection{{\"U}bungen}
+\begin{description}
+	\item[1.)] Erg{\"a}nzen Sie die fehlenden Code Fragmente damit die vorgegebene Ausgabe entsteht
+\begin{lstlisting}
+class Person:
+	def __init__(self,                          );
+	
+	
+	
+	
+	
+	
+	person1 = Person("Peter", "Petersen")
+	person2 = Person("Axel", "Schweiss")
+	person1.getName()
+	person2.getName()
+\end{lstlisting}
+Ausgabe Programmcode: 
+\begin{lstlisting}
+Peter Petersen
+Axel Schweiss
+\end{lstlisting}
+\item[2.] Erg{\"a}nzen Sie die folgende Klasse (mit Vererbung) um die unten stehende Ausgabe zu erhalten.
+\begin{lstlisting}
+class Auto:
+	def __init__(self, hersteller, farbe):
+	self.hersteller = hersteller
+	self.farbe = farbe
+	
+	def getAuto(self):
+		return self.hersteller + " " + self.farbe
+\end{lstlisting}
+Ausgabe des Programmcodes: 
+\begin{lstlisting}
+VW rot Polo
+\end{lstlisting}
