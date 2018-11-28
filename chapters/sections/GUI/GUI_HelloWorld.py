@@ -1,12 +1,13 @@
 # gui/GUI_HelloWorld.py
-# "Hallo Welt" Ausgabe in einem Fenster
+# "Hello World" Ausgabe in einem Fenster
 
 from tkinter import *
-from tkinter import ttk
 
-mainWin = Tk()
+root = Tk()
+root.title('tkinter Example - Hello World')
+root.minsize(300,300)
 
-label_1 = ttk.Label(mainWin, text='Hallo Welt')
+label_1 = Label(root, text='Hello World')
 label_1.grid()
 
-mainWin.mainloop()
+root.mainloop()

@@ -16,7 +16,7 @@ für Python, weshalb es inzwischen auf Mac OS X und Windows zum Lieferumfang
 von Python gehört.
 
 Tkinter besteht aus einer Reihe von Modulen. Das Tk interface wird von einem
-binären Erweiterungsmodul namens \lstinline!_tkinter! bereitgestellt. Dieses Modul enthält
+binären Erweiterungsmodul namens \lstinline$_tkinter$ bereitgestellt. Dieses Modul enthält
 die Low-Level-Schnittstelle zu Tk und sollte niemals direkt von
 Anwendungsprogrammierern verwendet werden. Es handelt sich in der Regel um eine
 Shared Library (oder DLL), kann aber in einigen Fällen statisch mit dem
@@ -24,13 +24,40 @@ Python-Interpreter verknüpft sein \cite{tkinter}.
 
 \section{Einbindung}
 
+Wir beginnen mit dem Import des Tkinter-Moduls, welches alle Klassen und Funktionen enthällt, die
+für die Arbeit mit dem Tk-Toolkit erforderlich sind.
+
 \lstinputlisting[language=Python]{chapters/sections/GUI/GUI_Imports.py}
 \label{gui:gui_imports}
 
-\section{Hallo Welt in grafischer Oberfläche}
+Ab Python 3.X.X wird Tkinter nach der Import-Anweisung klein geschrieben.
+
+\section{Hallo Welt in grafischer Benutzeroberfläche}
+
+Um Tkinter zu initialisieren, muss ein Tk Wurzel-Element erstellt werden.
+Dies ist ein gewöhnliches Fenster, mit einer Titelleiste und anderen Dekorationen,
+die von dem Betriebssystem bereitgestellt werden.
+Generell sollte nur ein Wurzel-Element für jedes Programm erstellt werden, welches auf höchster
+Ebene vor allen anderen Widget-Elementen steht.
+
+Im folgenden Beispiel wird dazu ein Wurzel-Element mit dem Namen \lstinline$root$ initialisiert.
 
 \lstinputlisting[language=Python]{chapters/sections/GUI/GUI_HelloWorld.py}
 \label{gui:gui_helloworld}
+
+Damit das Fenster mit Inhalt gefüllt werden kann, muss dem Wurzel-Element weitere
+Widgets als Kinder hinzugefügt werden. Dazu wurde ein Label mit dem Namen \lstinline$label_1$ angelegt.
+Die Parameterliste des \lstinline$Label$-Widgets nimmt als erstes Argument den Namen des Eltern- bzw. Wurzel-Element und
+als zweites Argument den Content bzw. Inhalt des Widgets entgegen.
+
+Als nächstes benötigt Tkinter die Anweisung, wie das der Inhalt das Fenster angezeigt werden soll.
+Dazu muss eine der Layout-Methoden, in diesem Fall \lstinline$label_1.grid()$ aufgerufen werden.
+Das Fenster wird jedoch erst sichtbar, sobald die Ereignisschleife \lstinline$mainloop()$ betreten wird.
+
+Das Programm wird nun solange ausgeführt und bleibt in der Ereignisschleife, bis das Fenster geschlossen wird.
+In der Mainloop-Ereignisschleife werden nicht nur Events wie Nutzereingaben (z.B. Mausklicks oder Tastatureingaben)
+verarbeitet, sondern auch die des Fenstersystems (z.B. Redraw-Ereignisse und Fenster-Konfigurationsmeldungen) und
+Ereignisse von Tkinter selbst.
 
 \section{Layout-Manager}
 
