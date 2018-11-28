@@ -1,0 +1,100 @@
+% !TeX root = ../../pythonTutorial.tex
+
+\section{Modularisierung}
+Unter Modularisierung versteht man die Aufteilung des Programmcodes in Modulen. Ein Modul stellt dabei verschiedene Datentypen, Funktionen und Werte bereit. Durch das Auslagern dieser Elementen in Modulen, wird das Projekt besser strukturiert. Zudem wird das Hauptprogramm aufgeräumt und die Leserlichkeit des Quellcodes erhöht.
+
+Bei den Modulen wird zwischen lokalen und globalen Modulen unterschieden. Während lokale Module nur in einem Projekt genutzt werden, können globale Module projektübergreifend verwendet werden. Ein Beispiel für ein globales Modul ist das Modul \texttt{math} der Standartbibliothek, welches mathematische Funktionen und Konstanten bereitstellt.
+
+Ob ein Modul lokal oder global ist, hängt vom Speicherort ab. Ein lokales Modul ist in der Regel im Programmverzeichnis oder in einem Unterverzeichnis davon hinterlegt. Ein globales Modul wird in einem bestimmten Verzeichnis der Python-Installation angelegt. Hierzu gehört beispielsweise das Verzeichnis \textit{site-packages}, indem auch einige Module von Drittanbietern installiert werden.
+
+\subsection{Erstellung eines lokalen Moduls}
+Zur Erstellung eines lokalen Moduls wird eine Datei \textit{meinModul.py} im Programmverzeichnis angelegt:
+\begin{lstlisting}
+def hallo(fname):
+	print("Hallo " + fname)
+    
+MAX = "Maximilian"
+\end{lstlisting}
+Der Inhalt dieser Datei  führt keinerlei Code aus, sondern stellt lediglich eine Funktion und eine Konstante bereit, welche später im Hauptprogramm genutzt werden können.
+
+\subsection{Module verwenden}
+Um lokale und globale Module verwenden zu können, müssen diese zunächst im Hauptprogramm eingebunden werden. Hierzu wird die \texttt{import}-Anweisung verwendet. Prinzipiell ist es egal wo dies im Quellcode geschieht. Es empfiehlt sich jedoch alle Module zu Beginn des Quelltextes einzubinden. Die \texttt{import}-Anweisung besteht aus dem dem Schlüsselwort \texttt{import} gefolgt vom Namen des Moduls. Im Folgenden wird das zuvor erstellte Modul eingebunden:
+\begin{lstlisting}
+import meinModul
+\end{lstlisting}
+
+Zu Beachten ist, dass beim Einbinden von Modulen die Dateiendung entfällt. Mit einer \texttt{import}-Anweisung können auch mehrere Module eingebunden werden. Hierzu werden die Modulnamen hinter dem Schlüsselwort, durch Kommas getrennt, aufgelistet:
+\begin{lstlisting}
+import meinModul, math
+\end{lstlisting}
+anstelle von:
+\begin{lstlisting}
+import meinModul
+import math
+\end{lstlisting}
+
+Durch das Einbinden eines Moduls, wird ein neuer Namensraum mit dem Modulnamen erzeugt. Über den Namensraum können alle Elemente des Moduls angesprochen werden:
+\begin{lstlisting}
+import meinModul
+meinModul.hallo(Welt)
+meinModul.hallo(MAX)
+\end{lstlisting}
+\newpage
+Ausgabe:
+\begin{lstlisting}
+Hallo Welt
+Hallo Maximilian
+\end{lstlisting}
+
+Mithilfe der \texttt{import/as}-Anweisung ist es möglich den Namen des Namensraum zu verändern:
+\begin{lstlisting}
+import meinModul as myBib
+myBib.hallo(Welt)
+\end{lstlisting}
+
+\textbf{Hinweis:}\\
+Es gilt zu beachten, dass nach dieser Anweisung das Modul \textit{meinModul} ausschließlich über den Namensraum \textit{myBib} zu erreichen ist.
+
+Python bietet zudem die Möglichkeit \textit{einzelne} Elemente aus einem Modul zu importieren. Hierzu wird die \texttt{from/import}-Anweisung verwendet:
+\begin{lstlisting}
+from math import sin, cos, tan, sinh, cosh, tanh
+\end{lstlisting}
+
+Falls die Liste der zu importierenden Elemente etwas Länger ausfallen sollte, kann die Aufzählung in mehreren Zeilen erfolgen, um so die Leserlichkeit des Codes zu verbessern. Zur Realisierung müssen zunächst die einzubindenden Elemente in runden Klammern gesetzt werden. Anschließend können beliebig viele Zeilenumbrüche innerhalb der runden Klammern erfolgen. Folgendes Beispiel zeigt eine \texttt{from/import}-Anweisung mit einem Zeilenumbruch:
+\begin{lstlisting}
+from math import (sin, cos, tan,
+                    sinh, cosh, tanh)
+\end{lstlisting}
+
+Mit einem Stern können \textit{alle} Elemente des Moduls imporiert werden:
+\begin{lstlisting}
+from meinModul import *
+\end{lstlisting}
+
+Es gilt zu beachten, dass bei der \texttt{from/import}-Anweisung kein eigener Namensraum erzeugt wird. Die Elemente werden stattdessen in den \textit{globalen} Namensraum eingebunden. Dies hat zur Folge, dass der Namensraum bei einem Zugriff auf ein Element nicht mehr angegeben wird:
+\begin{lstlisting}
+from meinModul import hallo
+hallo(Welt)		# statt: meinModul.hallo(Welt)
+\end{lstlisting}
+
+\textbf{Achtung:}\\
+Da die Elemente bei der \texttt{from/import}-Anweisung in den globalen Namensraum eingebunden werden, können bereits vorhandene Referenzen kommentarlos überschrieben werden. Hierzu ein kleines Beispiel:
+\begin{lstlisting}
+pi = 42
+print("pi hat den Wert:")
+print(pi)
+
+from math import pi
+print("pi hat den Wert:")
+print(pi)
+\end{lstlisting}
+
+Ausgabe:
+\begin{lstlisting}
+pi hat den Wert:
+42
+pi hat den Wert:
+3.141592653589793
+\end{lstlisting}
+
+Um derartige Fehler zu minimieren sollte die \texttt{from/import}-Anweisung sparsam verwendet werden - also nur dann,wenn einzelne Elemente aus einem Modul benötigt werden. Wenn alle oder fast alle Elemente aus einem Modul benötigt werden, empfiehlt es sich die \texttt{import}-Anweisung zu verwenden.
