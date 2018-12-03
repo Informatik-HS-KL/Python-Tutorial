@@ -2,7 +2,7 @@
 % Vorlage für Dokumentation auf LaTeX-Basis im Projekt InfoStuDi
 % --------------------------------------------------------------------------------------------
 \usepackage{mb}
-\usepackage{mbmath}
+ \usepackage{mbmath}
 \usepackage{textcomp}
 % Array-Paket für mehr Kontrolle der Tabellen
 \usepackage{array}
@@ -98,6 +98,13 @@
 \newcommand{\tip}[1]{%
 \vspace{4pt}\fboxsep 1mm \framebox[140mm]
 {\parbox{135mm}{{\textbf{Tipp}}:\\ #1}}\vspace{4pt}}
+
+%Achtung in einer Box
+\newcommand{\warning}[1]{%
+	\vspace{4pt}\fboxsep 1mm \framebox[140mm]
+	{\parbox{135mm}{{\textbf{Achtung}}:\\ #1}}\vspace{4pt}}
+%
+
 %
 %   Reflektion (in einer Box)
 %
@@ -190,7 +197,7 @@
     % Kapitelnummer.Zähler für das Item
     \arabic{chapter}.\arabic{aufgabenCounter}
 }
-% Der Text der Aufgaben steht im Ordner ../Uebungsaufgaben/aufgaben/aufgabenstellungen,
+% Der Text der Aufgaben steht im Ordner ./exercises/tasks/aufgabenstellungen,
 % so können wir die Dateien aus der Veranstaltung
 % Wahrscheinlichkeitsrechnung und Statistik verwenden; und die neuen
 % Aufgaben gehen in den allgemeinen Fundus ein.
@@ -221,17 +228,17 @@
 \newtheorem{datensatz}{Datensatz}
 }
 % Text mit Pfad
-\newcommand{\aufgabentext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\auftitle\label{#1}\input{../../uebungsaufgaben/Stochastik/aufgaben/aufgabenstellungen/#1}}
+\newcommand{\aufgabentext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\auftitle\label{#1}\input{./exercises/tasks/#1}}
 % Funktion für die Lösungs-Hinweise für eine Aufgabe. Der Text
-% steht analog zu den Übungsaufgaben im Ordner aufgaben/loesungen.
-\newcommand{\hinweistext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\input{../../Uebungsaufgaben/Stochastik/aufgaben/loesungen/#1}}
+% steht analog zu den Übungsaufgaben im Ordner tasks/solutions.
+\newcommand{\hinweistext}[1]{\renewcommand{\labelenumi}{\alph{enumi})}\input{./exercises/solutions/#1}}
 % Und jetzt die Funktionen, die wir im Text aufrufen
 \newcommand{\aufgabe}[1]{\aufgabentext{#1}}
 % Lösungshinweise im Anhang
 \newcommand{\hinweis}[1]{\subsubsection*{Aufgabe \ref{#1}} \hinweistext{#1}}
 %
 % Datensatz-Texte und Daten in eigener Datei
-\newcommand{\dataset}[1]{\begin{datensatz}\label{#1}\input{../../Uebungsaufgaben/Stochastik/datasets/#1}\end{datensatz}}
+\newcommand{\dataset}[1]{\begin{datensatz}\label{#1}\input{./exercises/datasets/#1}\end{datensatz}}
 % Teilaufgaben alphabetisch nummerieren
 \renewcommand{\labelenumi}{\arabic{enumi})}
 %

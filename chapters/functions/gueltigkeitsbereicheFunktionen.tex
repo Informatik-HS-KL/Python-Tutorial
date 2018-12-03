@@ -1,0 +1,129 @@
+% !TeX root = ../../pythonTutorial.tex
+\section{Gültigkeitsbereich von Variablen}
+
+Je nachdem, wie und wo Funktionen definiert sind, können diese zu anderen Ergebnissen führen. Zur Verdeutlichung folgt ein einfaches Beispiel (\ref{gueltigkeitsbereicheFunktionen:lst:simpleScope}).
+
+\begin{lstlisting}[language=Python, label=gueltigkeitsbereicheFunktionen:lst:simpleScope]
+# Beispiel zu Gültigkeitsbereichen
+
+def myFunction():
+  # lokaler Gültigkeitsereich der Funktion
+  a = 1
+  print('myFunction:', a)
+
+# globaler Gültigkeitsbereich
+a = 0
+myFunction()
+print('global:', a)
+\end{lstlisting}
+
+Wenn wir diesen Code ausführen, sehen wir folgenden Output:
+
+myFunction: 1
+\\*
+global: 0
+
+In beiden Bereichen benutzen wir die Variable \lstinline$a$.
+Die Funktion wird nach dem Initialisieren der Variable aufgerufen.
+Warum erhalten wir also zwei unterschiedliche Werte?
+
+Der Grund: es handelt sich nicht um die gleiche Variable, da beide Variablen in verschiedenen Gültigkeitsbereichen definiert werden. Ließen wir die lokale Zuweisung aus, würde zweimal der Wert 0 ausgegeben werden.
+Python sucht nach dem nächstmöglichen Gültigkeitsbereich: \lstinline$lokal$, \lstinline$umschließend$, \lstinline$global$ und \lstinline$built-in$.
+
+Nun ein Beispiel mit verschachtelten Funktionen:
+
+\begin{lstlisting}[language=Python, label=gueltigkeitsbereicheFunktionen:lst:enclosingScope]
+# Verschachtelte Funktionen
+
+def enclosing():
+  a = 1
+
+  def innerFunction():
+    a = 2
+    print('innerste:', a)
+
+  innerFunction()
+  print('umschließend:', a)
+
+a = 0
+enclosing()
+print('global:', a)
+\end{lstlisting}
+
+Nach dem Ausdrucken erhalten wir:
+
+innerste: 2
+\\*
+umschließend: 1
+\\*
+global: 0
+
+
+\subsection{Statements zu Gültigkeitsbereichen - \mbox{global und nonlocal}}
+
+Nicht nur durch die Positionen werden Gültigkeitsbereiche definiert, auch durch die Schlüsselwörter \lstinline$global$ und \lstinline$nonlocal$ können wir den Gültigkeitsbereich bestimmen.
+
+Durch \lstinline$nonlocal$ wird eine Variable auf die nächst umschließende Definition festgelegt (\ref{gueltigkeitsbereicheFunktionen:lst:nonlocalStatement}). 
+
+\begin{lstlisting}[language=Python, label=gueltigkeitsbereicheFunktionen:lst:nonlocalStatement]
+# Nonlocal Statement
+
+def enclosing():
+  a = 1
+
+  def innerFunction():
+    nonlocal a
+    a = 2
+    print('innerste:', a)
+
+  innerFunction()
+  print('umschließend:', a)
+
+a = 0
+enclosing()
+print('global:', a)
+\end{lstlisting}
+
+Nach dem Ausdrucken erhalten wir:
+
+innerste: 2
+\\*
+umschließend: 2
+\\*
+global: 0
+
+Achtung: Würde in der enclosing-Funktion \lstinline$a$ auf \lstinline$nonlocal$ gesetzt, dann käme es zu einer \lstinline$Exception$, da die nächste Ebene global ist.
+
+Das Gleiche können wir mit dem globalen Gültigkeitsbereich machen, wie in \ref{gueltigkeitsbereicheFunktionen:lst:globalStatement} gezeigt.
+
+\begin{lstlisting}[language=Python, label=gueltigkeitsbereicheFunktionen:lst:globalStatement]
+# Global Statement
+
+def enclosing():
+  a = 1
+
+  def inner():
+    global a
+    a = 2
+    print('innerste:', a)
+
+  innereFunction()
+  print('umschließend:', a)
+
+a = 0
+enclosing()
+print('global:', a)
+\end{lstlisting}
+
+Nach dem Ausdrucken erhalten wir:
+
+innerste: 2
+\\*
+umschließend: 1
+\\*
+global: 2
+
+
+Während \lstinline$nonlocal$ nur den nächst umschließenden Gültigkeitsbereich wählt -  in welcher die Variable deklariert wurde - greift \lstinline$global$ immer auf den globalen Gültigkeitsbereich zu.
+
+\newpage
