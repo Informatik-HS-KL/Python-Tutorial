@@ -1,0 +1,45 @@
+Um SymPy nutzen zu können muss zunächst das Modul \lstinline!sympy! importiert werden.
+\begin{lstlisting}
+from sympy import *
+\end{lstlisting}
+
+Die Symbole können wie folgt erstellt werden.
+
+\begin{lstlisting}
+>>> x, y, z = symbols('x y z')
+\end{lstlisting}
+
+
+\begin{enumerate}
+	\item Eine Möglichkeit die Ausdrücke zu erstellen über einfache Zuweisung.
+	Die Gleichheit wird mit der \lstinline!simplify!-Funktion und dem Vergleich mit \lstinline!0! geprüft.
+\begin{lstlisting}[mathescape]
+>>> expr1 = (x**2 + 1) * (x**2 - 1)
+>>> expr2 = (x**2 - 1)
+>>> simplify(expr1 - expr2) == 0
+False
+\end{lstlisting}
+	\item Zum Substituieren wird die \lstinline!subs!-Methode verwendet.
+	Dabei ist zu beachten dass dabei nicht der bestehende Ausdruck geändert wird sondern ein Neuer erstellt wird.
+\begin{lstlisting}
+>>> expr3 = expr1.subs(x**2, x)
+>>> simplify(expr3 - expr2) == 0
+True
+\end{lstlisting}
+	\item Faktorisiert wird mit  \lstinline!factor!.
+\begin{lstlisting}[mathescape]
+>>> expr4 = factor(expr3)
+>>> expr4
+(x - 1)(x + 1)
+\end{lstlisting}	
+	\item Die in der Aufgabe davor durchgefürte Akjtion ist das Faktorisieren.
+	Um diese Aktion umzukehren muss der Term wieder Ausmultipliziert werden.
+	Diese Operation kann durch das ausführen der \lstinline!simplify!-Funktion erreicht werden.
+\begin{lstlisting}[mathescape]
+>>> expr5 = simplify(expr4)
+>>> expr5
+$x^2 - 1$
+\end{lstlisting}	
+	
+
+\end{enumerate}
