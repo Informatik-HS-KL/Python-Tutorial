@@ -1,27 +1,27 @@
 \section{NumPy}
 \label{numpy}
-NumPy ist eine Python-Bibliothek für wissenschaftliches Rechnen.
-Sie beinhaltet laut der Dokumentation unter anderem Folgendes \cite{numpy}:
+\nump{} ist eine Python-Bibliothek für wissenschaftliches Rechnen.
+Sie beinhaltet laut der Dokumentation unter anderem Folgendes (\cite{numpy}):
 
 \begin{itemize}
   \item mächtige $n$-dimensionale Array-Objekte
   \item Werkzeuge zur Integration von C und Fortran
   \item Funktionen zur linearen Algebra, Fouriertransformation, Erzeugung von
-        Zufallszahlen
+        Zufallszahlen, \ldots
 \end{itemize}
 
 % Zitat: http://www.numpy.org
 
-Um NumPy zu installieren, kann der Befehl \lstinline!pip install numpy!
+Um \nump{} zu installieren, kann der Befehl \lstinline!pip install numpy!
 verwendet werden.
 
 \subsection{Arrays}
 \label{numpy:subsection:arrays}
 
-Der Array-Datentyp von NumPy heißt \lstinline!numpy.ndarray!.
+Der Array-Datentyp von \nump{} heißt \lstinline!numpy.ndarray!.
 Anders als der Standarddatentyp für Listen (\lstinline!list!) unterstützt der
 Datentyp \lstinline!numpy.ndarray! numerische Operatoren.
-Der NumPy-eigene Datentyp ermöglicht es, Arrays direkt über den
+Der \nump{}-eigene Datentyp ermöglicht es, Arrays direkt über den
 \lstinline!+!-Operator elementweise zu addieren. Eine Addition mit einer
 einzelnen Zahl vom Typ \lstinline!int! oder \lstinline!float! betrifft alle
 Elemente im Array.
@@ -33,8 +33,8 @@ import numpy as np
 a = np.array([1,2,3])
 a + 3 # [4 5 6]
 \end{lstlisting}
-NumPy wird hierbei mit dem Namen \lstinline!np! importiert. Damit folgt dieses
-Tutorial der Konvention aus der Dokumentation von NumPy.
+\nump{} wird hierbei mit dem Namen \lstinline!np! importiert. Damit folgt dieses
+Tutorial der Konvention aus der Dokumentation von \nump{}.
 
 Subtraktion, Multiplikation, Division, Ganzzahldivision und Potenzieren
 funktionieren analog:\footnote{Der Import von \lstinline!numpy! wird der
@@ -60,9 +60,9 @@ a ** b # [  1  32 729]
 a // b # [0 0 0]
 \end{lstlisting}
 
-Um ein NumPy-Array zu erzeugen, wird ein \lstinline!list!-Objekt an die Funktion
+Um ein \nump{}-Array zu erzeugen, wird ein \lstinline!list!-Objekt an die Funktion
 \lstinline!np.array()! übergeben. Dabei werden alle Elemente im
-\lstinline!list!-Objekt in einem Datentyp von NumPy konvertiert. Um den Datentyp
+\lstinline!list!-Objekt in einem Datentyp von \nump{} konvertiert. Um den Datentyp
 eines Arrays herauszufinden, wird \lstinline!.dtype.name! genutzt. Anders
 als bei \lstinline!list! müssen sämtliche Elemente eines Arrays den gleichen
 Typ haben.
@@ -75,7 +75,7 @@ a.dtype.name # 'float64'
 
 Wenn die übergebene \lstinline!list! Elemente vom Typ \lstinline!int! und von
 Typ \lstinline!float! gemischt enthält,
-konvertiert NumPy in einen Fließkommatyp. Wie viele Bit für einen Integer
+konvertiert \nump{} in einen Fließkommatyp. Wie viele Bit für einen Integer
 beziehungsweise ein Float zur Verfügung stehen, ist von der Prozessorarchitektur
 abhängig. Diese beträgt aber bei aktuellen Architekturen in der Regel 64 Bit.
 
@@ -107,7 +107,7 @@ nan
 \lstinline!np.NZERO! steht für die negative Darstellung der Null bei
 Fließkommazahlen, \lstinline!np.PZERO! für die positive Darstellung.
 
-NumPy unterstützt eine Vielzahl an mathematischen Funktionen, darunter unter
+\nump{} unterstützt eine Vielzahl an mathematischen Funktionen, darunter unter
 anderem Folgende:
 
 \begin{itemize}
@@ -212,7 +212,7 @@ Weise erzeugt:
 [1 2 3]
 \end{lstlisting}
 Hierbei wird zuerst eine \lstinline!list! mit konkreten Werten erzeugt und dann
-mittels \lstinline!np.array! in ein NumPy-Array konvertiert.
+mittels \lstinline!np.array! in ein \nump{}-Array konvertiert.
 
 Neben Listen kann \lstinline!np.array! auch sämtliche anderen Sequences in
 Arrays umwandeln, zum Beispiel Tupel und Ranges:
@@ -385,7 +385,7 @@ den in den Paramtern angegebenen Dimensionen.
 (3, 2)
 \end{lstlisting}
 
-Untenstehendes Beispiel zeigt, wie sich die Form des Arrays durch die
+Das folgende Beispiel zeigt, wie sich die Form des Arrays durch die
 Rückgabewerte der Funktion verändern kann.
 \begin{lstlisting}
 >>> f = lambda i, j: np.array([i, j])
@@ -405,7 +405,7 @@ Rückgabewerte der Funktion verändern kann.
 \subsubsection{Arrays aus iterierbaren Objekten erzeugen}
 
 Um ein beliebiges iterierbares Objekt in ein eindimensionales Array zu
-konvertieren, bietet NumPy die Funktion \lstinline!np.fromiter()! an. Der zweite
+konvertieren, bietet \nump{} die Funktion \lstinline!np.fromiter()! an. Der zweite
 Parameter gibt den Datentyp des Arrays an. Mit dem
 optionalen Parameter \lstinline!count! wird angegeben, wie viele Elemente aus
 dem Objekt übernommen werden sollen. Wird \lstinline!count! weggelassen, so
@@ -425,6 +425,5 @@ abbricht!}
 [ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18]
 \end{lstlisting}
 
-\uebung
-\aufgabe{numpy_01}
-\aufgabe{numpy_02}
+\pagebreak
+\uebungTutorial{numpy_01}{numpy_02}
