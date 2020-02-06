@@ -12,7 +12,7 @@ Die Funktionen können wir folgt erzeugt werden:
 >>> diff(f, x, 3)
 $60x^2$
 \end{lstlisting}
-	\item 
+	\item
 \begin{lstlisting}[mathescape]
 >>> diff(g, x, 3, y, 2, z)
 12
@@ -29,16 +29,4 @@ $\infty$
 >>> limit(h, x, 0, '-')
 $-\infty$
 \end{lstlisting}
-	\item Um des Gleichungssystem zu lösen empfiehlt es sich zunächst alle Gleichungen so umzuformen dass immer eine $0$ auf der rechten Seite steht.
-	Gelöst wird das Gleichungssystem dann mit der \lstinline!linsolve!-Funktion.
-	Eine Möglichkeit sieht wie folgt aus:
-
-\begin{lstlisting}[mathescape]
->>> eq1 = -x + y + z
->>> eq2 = x - 3*y - 2*z - 5
->>> eq3 = 5*x + y + 4*z - 3
->>> linsolve([eq1, eq2, eq3], (x, y, z))
-{(-1, -4, 3)}
-\end{lstlisting}
-
-\end{enumerate}
+\end{enumerate} 

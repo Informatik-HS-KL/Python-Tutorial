@@ -1,6 +1,6 @@
 \section{SymPy}
 \label{sympy}
-\symp{} ist eine Python-Bibliothek für symbolisch-mathematische Berechnungen.
+SymPy ist eine Python-Bibliothek für symbolische Berechnungen.
 Sie unterstützt laut der Dokumentation unter anderem folgende Funktionen \cite{sympy}:
 
 \begin{itemize}
@@ -9,30 +9,34 @@ Sie unterstützt laut der Dokumentation unter anderem folgende Funktionen \cite{s
   \item Integralrechnung
   \item Algebra
 \end{itemize}
+Symbolische Berechnung bedeutet, dass keine numerischen Annäherungen
+für die Lösung von Gleichungen gesucht werden, sondern Gleichungen,
+falls möglich, formal und analytisch gelöst werden. Ableitungen und Stammfunktionen
+werden als Funktionen berechnet.
 
-Dabei ist zu berücksichtigen dass \symp{} nicht die Syntax von Python erweitert und ist somit an Limitierungen die in Python vorhanden sind gebunden ist.
-Ein Beispiel dafür ist die implizite Multiplikation wie \lstinline!3x! welche in Python nicht erlaubt ist und daher auch nicht in \symp{}.
+Dabei ist zu berücksichtigen dass SymPy nicht die Syntax von Python erweitert und ist somit an Limitierungen die in Python vorhanden sind gebunden ist.
+Ein Beispiel dafür ist die implizite Multiplikation wie \lstinline!3x! welche in Python nicht erlaubt ist und daher auch nicht in SymPy.
 % Zitat: https://www.sympy.org
 
-Um \symp{} zu installieren, kann der Befehl \lstinline!pip install sympy!
+Um SymPy zu installieren, kann der Befehl \lstinline!pip install sympy!
 verwendet werden.
 
 \subsection{Symbole}
 \label{sympy:subsection:symbols}
 
-In \symp{} müssen Variablen als Symbole definiert werden bevor sie genutzt werden können:
-\footnote{Der Import von \lstinline!sympy! wird der
-Übersichtlichkeit halber nachfolgend ausgelassen.}
+In SymPy müssen Variablen als Symbole definiert werden bevor sie genutzt werden können:
 \begin{lstlisting}
 >>> from sympy import *
 >>> x = symbols('x')
 >>> x + 1
 x + 1
 \end{lstlisting}
-
-\lstinline!symbols! wird dabei eine Reihe von Symbol Variablennamen übergeben, die durch Leerzeichen oder Kommata von einender getrennt sind. Diese werden dann Python Variablen zugewiesen.
+\lstinline!symbols! wird dabei eine Reihe von Symbol Variablennamen übergeben, die durch Leerzeichen oder Kommata von getrennt sind. 
+Diese werden dann Python Variablen zugewiesen.
 Dabei müssen diese Namen nicht übereinstimmen und können ebenso länger als ein Zeichen lang sein.
 
+Der Import von \lstinline!sympy! wird wie schon für NumPy der
+Übersichtlichkeit halber nachfolgend ausgelassen.
 \begin{lstlisting}
 >>> x, y, z = symbols('x y z')
 >>> a, b = symbols('b, a')
@@ -48,17 +52,18 @@ triangle + a
 \subsection{Einfache Operationen}
 \label{sympy:subsection:simpleOperations}
 
-In diesem Abschnitt werden einige einfache Operationen behandelt, welche mit \symp{} umgesetzt werden können.
+In diesem Abschnitt werden einige einfache Operationen behandelt, welche mit SymPy umgesetzt werden können.
 
 \subsubsection{Gleichheit}
-Da \symp{} nicht die Syntax von Python erweitert kann das \lstinline!'='! nicht für den Gleichheitsvergleich genutzt werden.
-Ebenso kann \lstinline!'=='! nur bedingt zum Vergleich genutzt werden, da es auf die exakte strukturelle Gleichheit testet und immer ein \lstinline!bool! als Ergebnis hat und somit keine Gleichung erzeugen kann.\footnote{Symbole wie x werden im Weiteren der Übersichtlichkeit halber als initialisiert angesehen }
+Da SymPy nicht die Syntax von Python erweitert kann das \lstinline!'='! nicht für den Gleichheitsvergleich genutzt werden.
+Ebenso kann \lstinline!'=='! nur bedingt zum Vergleich genutzt werden, da es auf die exakte strukturelle Gleichheit testet und immer ein \lstinline!bool! als Ergebnis hat und somit keine Gleichung erzeugen kann. 
 \begin{lstlisting}
 >>> x + 3 == 4
 False
 \end{lstlisting}
+Symbole wie x werden im Weiteren der Übersichtlichkeit halber als initialisiert angesehen.
 
-Um in \symp{} eine Gleichung zu erzeugen existiert ein spezielles Objekt \lstinline!Eq!
+Um in SymPy eine Gleichung zu erzeugen existiert ein spezielles Objekt \lstinline!Eq!
 Eine Gleichung wie \lstinline!x + 3 = 4! kann mit folgender Anweisung erzeugt werden:
 
 \begin{lstlisting}
@@ -67,7 +72,7 @@ Eq(x + 3, 4)
 \end{lstlisting}
 
 Um zwei Terme auf mathematische Gleichheit zu prüfen, ist es einfacher statt \lstinline!a == b! auf \lstinline! a - b = 0! zu testen.
-Dazu wird \lstinline!a - b! vereinfacht und anschließend mit \lstinline!0!verglichen. Dazu wird die Funktion \lstinline!simplify! genutzt, auf diese wird im Verlauf noch genauer eingegangen.
+Dazu wird \lstinline!a - b! vereinfacht und anschließend mit \lstinline!0! verglichen. Dazu wird die Funktion \lstinline!simplify! genutzt, auf diese wird im Verlauf noch genauer eingegangen.
 Sie vereinfacht den Term soweit wie möglich.
 
 Beispielsweise mit der Gleichung \((x + 1)^2 = x^2 + 2x + 1\):
@@ -93,7 +98,7 @@ Damit haben folgende Gleichungen die gleiche Semantik:
 \subsubsection{Substitution}
 Substitutionen sind einer der grundlegenden Aktionen mit einem mathematischen Ausdruck.
 Bei einer Substitution werden alle Vorkommen von etwas in dem Ausdruck mit etwas neuem ersetzt.
-Diese Operation wird in \symp{} mit der Funktion \lstinline!subs! durchgeführt. Beispielsweise wird $x$ durch $y$ ersetzt:
+Diese Operation wird in SymPy mit der Funktion \lstinline!subs! durchgeführt. Beispielsweise wird $x$ durch $y$ ersetzt:
 
 \begin{lstlisting}[mathescape]
 >>> expr = x**2 + 2 * x + z
@@ -101,9 +106,9 @@ Diese Operation wird in \symp{} mit der Funktion \lstinline!subs! durchgeführt. 
 $y^2 + 2y + z$
 \end{lstlisting}
 
-\warning{Objekte in \symp{} sind unveränderbar. Das bedeutet \lstinline!subs! verändert nicht das bestehende Objekt sonder gibt ein Neues zurück!}
+\warning{Objekte in SymPy sind unveränderbar. Das bedeutet \lstinline!subs! verändert nicht das bestehende Objekt sonder gibt ein Neues zurück!}
 
-Es ist ebenso möglich mehrere Substitutionen mit einem Aufruf durchzuführen dazu wird \lstinline!subs! eine Liste von Paaren übergeben:
+Es ist ebenso möglich mehrere Substitutionen mit einem Aufruf durchzuführen. Dazu wird \lstinline!subs! eine Liste von Paaren übergeben:
 
 \begin{lstlisting}[mathescape]
 >>> expr = x**2 + 2 * x + z
@@ -112,8 +117,8 @@ $y^2 + 2y + 1$
 \end{lstlisting}
 
 
-\subsubsection{String zu \symp{} Ausdruck}
-Mit der Funktion \lstinline!sympify! lasen sich Strings in \symp{} Ausdrücke umwandeln.
+\subsubsection{String zu SymPy Ausdruck}
+Mit der Funktion \lstinline!sympify! lasen sich Strings in SymPy Ausdrücke umwandeln.
 
 \begin{lstlisting}[mathescape]
 >>> str_expr = "x ** 2 + 2 * x + 1"
@@ -127,7 +132,7 @@ Dabei ist zu beachten, dass der Ausdruck wohlgeformt ist, da zur Berechnung \lst
 \subsection{Vereinfachung}
 \label{sympy:subsection:simplification}
 
-In \symp{} gibt es verschiedene Methoden um Ausdrücke zu vereinfachen.
+In SymPy gibt es verschiedene Methoden um Ausdrücke zu vereinfachen.
 
 \subsubsection{Vereinfachen}
 Die simpelste Art zu vereinfachen ist die Verwendung der \lstinline!simplify!-Methode.
@@ -144,10 +149,10 @@ $x^2 + 2*x + 1$
 
 Im letzten Beispiel ist zu sehen, dass \lstinline!simplify! in einem Fall nichts geändert hat. \lstinline!simplify! versucht anhand von Heuristiken zu erkennen welche die einfachste Darstellung ist, daher kann es vorkommen dass nicht die gewünschte Form des Ausdrucks das Ergebnis der Berechnung ist.
 Möglicherweise wäre eine gewünschte Vereinfachung in der Form \((x + 1)^2\).
-Wenn eine bestimmte Form der Vereinfachung gewollt ist es Sinnvoll die zu dieser Form passende Methode zu wählen.
+Wenn eine bestimmte Form der Vereinfachung gewollt ist es sinnvoll die zu dieser Form passende Methode zu wählen.
 
 \subsubsection{Erweitern}
-Des Erweitern eines Ausdrucks in \symp{} wird über die \lstinline!expand!-Methode realisiert. Untenstehendes Beispiel zeigt wie eine Erweiterung aussehen kann.
+Des Erweitern eines Ausdrucks in SymPy wird über die \lstinline!expand!-Methode realisiert. Untenstehendes Beispiel zeigt wie eine Erweiterung aussehen kann.
 
 \begin{lstlisting}[mathescape]
 >>> expand((x + 1)**2)
@@ -159,12 +164,12 @@ Wie das Beispiel zeigt kann der Ausdruck durch das Erweitern länger oder kürzer 
 Das hängt davon ab in wie weit sich Teile des Ausdrucks gegenseitig aufheben.
 
 \subsubsection{Faktorisieren}
-Faktorisiert wird in \symp{} mit der \lstinline!factor!-Methode
+Polynome faktorisieren wir in SymPy mit der \lstinline!factor!-Methode
 
 \begin{lstlisting}[mathescape]
 >>> factor(x**2 + 2 * x + 1)
 $(x + 1)^2$
->>> factor(x**2*z + 4*x*y*z + 4*y**2*z)
+>>>factor(x**2*z + 4*x*y*z + 4*y**2*z)
 $z(x + 2y)^2$
 \end{lstlisting}
 
@@ -178,12 +183,12 @@ $(1, [(z, 1), (x + 2y, 2)])$
 
 
 
-\subsection{Berechnung}
+\subsection{Berechnungen}
 \label{sympy:subsection:calculus}
-In \symp{} lassen sich verschiedene mathematische Berechnungen mit Thermen und Funktionen durchführen.
+In SymPy lassen sich verschiedene mathematische Berechnungen mit Thermen und Funktionen durchführen.
 
 \subsubsection{Differenzieren}
-Um in \symp{} zu differenzieren kann die \lstinline!diff!-Funktion verwendet werden.
+Um in SymPy zu differenzieren kann die \lstinline!diff!-Funktion verwendet werden.
 Außerdem kann es auch als Methode aufgerufen werden mit der gleichen Funktionalität.
 
 \begin{lstlisting}[mathescape]
@@ -195,7 +200,7 @@ $4x^3$
 \end{lstlisting}
 
 Dabei kann auch mehrfach mit einem Aufruf differenziert werden. Dazu muss die Liste der Ableitungen in der gewünschten Reihenfolge angegeben werden.
-Dabei kann auch statt dem wiederholen von z.B. x auch eine Zahl angegeben werden wie oft nach dieser differenziert werden soll.
+Dabei kann auch statt dem wiederholens von x auch eine Zahl angegeben werden wie oft nach dieser differenziert werden soll.
 
 \begin{lstlisting}[mathescape]
 >>> diff(x**4, x, x, x)
@@ -210,7 +215,7 @@ $12xy$
 Integrale werden mit der \lstinline!integrate!-Funktion berechnet.
 Dabei wird zwischen bestimmten und unbestimmten Integralen unterschieden.
 Bestimmte Integrale bekommen zusätzlich zur Funktion und der zu integrierenden Variable noch die untere und obere Grenze des Integrals übergeben.
-$\infty$ wird in \symp{} durch \lstinline!oo! ausgedrückt.
+$\infty$ wird in SymPy durch \lstinline!oo! ausgedrückt.
 
 \begin{lstlisting}[mathescape]
 >>> integrate(2 * x, x)
@@ -222,12 +227,12 @@ $\infty$
 Analog zum Differenzieren können auch beim Integrieren mehrere Tupel von unterem und oberem Limit übergeben werden, um ein Mehrfachintegral zu erzeugen.
 
 \begin{lstlisting}
->>> integrate(exp(-x), (x, 0, oo), (x, 0, oo))
+>>> integrate(exp(-x), (x, 0, oo))
 1
 \end{lstlisting}
 
 \subsubsection{Grenzwerte}
-Grenzwerte in \symp{} werden über die \lstinline!limit!-Funktion berechnet.
+Grenzwerte in SymPy werden über die \lstinline!limit!-Funktion berechnet.
 Um beispielsweise $\lim_{x\to 0} sin(x)$ zu berechnen kann folgende Anweisung verwendet werden:
 
 \begin{lstlisting}
@@ -244,10 +249,10 @@ $-\infty$
 \end{lstlisting}
 
 
-\subsubsection{Gleichungen Lösen}
+\subsubsection{Gleichungslösung}
 
 Algebraische Gleichungen werden mit der \lstinline!solveset!-Funktion gelöst.
-Der Methode werden wird dabei die zu lösende Gleichung, die zu betrachtende Variable und optional noch die zu verwendende Wertemenge übergeben.
+Der Methode wird dabei die zu lösende Gleichung, die zu betrachtende Variable und optional noch die zu verwendende Wertemenge übergeben.
 Die Rückgabe des Funktionsaufrufs ist je nach Lösung des speziellen Problems z.B. eine endliche Menge oder ein Intervall.
 
 \begin{lstlisting}[mathescape]
@@ -258,10 +263,8 @@ $\mathbb{R}$
 >>> solveset(exp(x), x)
 $\emptyset$
 \end{lstlisting}
-
 Lineare Gleichungen werden mit der \lstinline!linsolve!-Funktion gelöst.
-Dabei lassen sich die Gleichungen entweder in ausgeschriebener Form wie $x + y + z - 1$ und $x + y + 2*z - 3$ übergeben werden oder in einer Matrix in der die Koeffizienten der einzelnen Teile angegeben werden.
-
+Dabei lassen sich die Gleichungen entweder in ausgeschriebener Form wie $x + y + z - 1$ und $x + y + 2 \cdot z - 3$ übergeben werden oder in einer Matrix in der die Koeffizienten der einzelnen Teile angegeben werden.
 
 \begin{lstlisting}[mathescape]
 >>> linsolve([x + y + z - 1, x + y + 2*z - 3], (x, y, z))
@@ -269,8 +272,17 @@ Dabei lassen sich die Gleichungen entweder in ausgeschriebener Form wie $x + y +
 >>> linsolve(Matrix(([1, 1, 1, 1], [1, 1, 2, 3])), (x, y, z))
 {(-y - 1, y, 2)}
 \end{lstlisting}
-
-Analog dazu werden mit der \lstinline!nonlinsolve!-Funktion nicht lineare Gleichungen gelöst.
+Die Lösung des linearen Gleichungssystems
+\begin{align*}
+x + 2y &= 5,\\
+3x + 4y &= 11
+\end{align*}
+berechnen wir in SymPy mit
+\begin{lstlisting}[mathescape]
+>>> linsolve([x + 2*y - 5, 3*x + 4*y - 11], (x, y))
+{(1, 2)}
+\end{lstlisting}
+Analog dazu werden mit der \lstinline!nonlinsolve!-Funktion nicht-lineare Gleichungen gelöst.
 
 \begin{lstlisting}[mathescape]
 >>> nonlinsolve([x**2 + x, x - y], [x, y])
@@ -280,6 +292,4 @@ Analog dazu werden mit der \lstinline!nonlinsolve!-Funktion nicht lineare Gleich
 \end{lstlisting}
 
 
-\uebung
-\aufgabe{sympy_01}
-\aufgabe{sympy_02} 
+\uebungTutorial{sympy_01}{sympy_02}{sympy_03}

@@ -1,6 +1,6 @@
 \section{NumPy}
 \label{numpy}
-\nump{} ist eine Python-Bibliothek für wissenschaftliches Rechnen.
+NumPy ist eine Python-Bibliothek für wissenschaftliches Rechnen.
 Sie beinhaltet laut der Dokumentation unter anderem Folgendes (\cite{numpy}):
 
 \begin{itemize}
@@ -12,34 +12,33 @@ Sie beinhaltet laut der Dokumentation unter anderem Folgendes (\cite{numpy}):
 
 % Zitat: http://www.numpy.org
 
-Um \nump{} zu installieren, kann der Befehl \lstinline!pip install numpy!
+Um NumPy zu installieren, kann der Befehl \lstinline!pip install numpy!
 verwendet werden.
 
 \subsection{Arrays}
 \label{numpy:subsection:arrays}
 
-Der Array-Datentyp von \nump{} heißt \lstinline!numpy.ndarray!.
+Der Array-Datentyp von NumPy heißt \lstinline!numpy.ndarray!.
 Anders als der Standarddatentyp für Listen (\lstinline!list!) unterstützt der
 Datentyp \lstinline!numpy.ndarray! numerische Operatoren.
-Der \nump{}-eigene Datentyp ermöglicht es, Arrays direkt über den
+Der NumPy-eigene Datentyp ermöglicht es, Arrays direkt über den
 \lstinline!+!-Operator elementweise zu addieren. Eine Addition mit einer
 einzelnen Zahl vom Typ \lstinline!int! oder \lstinline!float! betrifft alle
 Elemente im Array.
 
 So kann etwa jeder Wert in einem Array mit den folgenden Anweisungen um drei
 erhöht werden:
-\begin{lstlisting}
+\begin{lstlisting}{}
 import numpy as np
 a = np.array([1,2,3])
 a + 3 # [4 5 6]
 \end{lstlisting}
-\nump{} wird hierbei mit dem Namen \lstinline!np! importiert. Damit folgt dieses
-Tutorial der Konvention aus der Dokumentation von \nump{}.
+NumPy wird hierbei mit dem Namen \lstinline!np! importiert. Damit folgt dieses
+Tutorial der Konvention aus der Dokumentation von NumPy. 
 
 Subtraktion, Multiplikation, Division, Ganzzahldivision und Potenzieren
-funktionieren analog:\footnote{Der Import von \lstinline!numpy! wird der
-Übersichtlichkeit halber nachfolgend ausgelassen.}
-\begin{lstlisting}
+funktionieren analog:
+\begin{lstlisting}{}
 a = np.array([1,2,3])
 a - 3  # [-2 -1  0]
 a * 3  # [3 6 9]
@@ -47,9 +46,10 @@ a / 3  # [0.33333333 0.66666667 1.        ]
 a // 3 # [0 0 1]
 a ** 3 # [ 1  8 27]
 \end{lstlisting}
-
+Wie in den folgenden Beispielen auch wird der Import von NumPy der
+Übersichtlichkeit halber ausgelassen.
 Zwei Arrays gleicher Länge können elementweise miteinander verrechnet werden:
-\begin{lstlisting}
+\begin{lstlisting}]}
 a = np.array([1,2,3])
 b = np.array([4,5,6])
 a + b  # [5 7 9]
@@ -60,9 +60,9 @@ a ** b # [  1  32 729]
 a // b # [0 0 0]
 \end{lstlisting}
 
-Um ein \nump{}-Array zu erzeugen, wird ein \lstinline!list!-Objekt an die Funktion
+Um ein NumPy-Array zu erzeugen, wird ein \lstinline!list!-Objekt an die Funktion
 \lstinline!np.array()! übergeben. Dabei werden alle Elemente im
-\lstinline!list!-Objekt in einem Datentyp von \nump{} konvertiert. Um den Datentyp
+\lstinline!list!-Objekt in einem Datentyp von NumPy konvertiert. Um den Datentyp
 eines Arrays herauszufinden, wird \lstinline!.dtype.name! genutzt. Anders
 als bei \lstinline!list! müssen sämtliche Elemente eines Arrays den gleichen
 Typ haben.
@@ -73,16 +73,16 @@ b = np.array([1.4,2.5,3.6])
 a.dtype.name # 'float64'
 \end{lstlisting}
 
-Wenn die übergebene \lstinline!list! Elemente vom Typ \lstinline!int! und von
-Typ \lstinline!float! gemischt enthält,
-konvertiert \nump{} in einen Fließkommatyp. Wie viele Bit für einen Integer
+Wenn die übergebene Liste sowohl Elemente vom Typ \lstinline!int! als auchvom
+Typ \lstinline!float! enthält,
+konvertiert NumPy in eine Fließkommazahl. Wie viele Bit für einen Integer
 beziehungsweise ein Float zur Verfügung stehen, ist von der Prozessorarchitektur
-abhängig. Diese beträgt aber bei aktuellen Architekturen in der Regel 64 Bit.
+abhängig. Diese beträgt bei aktuellen Architekturen in der Regel $64$ Bit.
 
 \subsection{Konstanten und Funktionen}
 \label{numpy:subsection:constantsAndFunctions}
-Es stehen für die mathematische Anwendungen auch Konstanten zur Verfügung,
-darunter die Folgenden mit den entsprechenden Werten und Präzisionen mit
+Für die mathematische Anwendungen stehenh Konstanten zur Verfügung,
+darunter die Folgenden mit den entsprechenden Werten und Genauigkeiten mit
 \lstinline!float64!:
 \begin{lstlisting}
 >>> np.pi
@@ -107,7 +107,7 @@ nan
 \lstinline!np.NZERO! steht für die negative Darstellung der Null bei
 Fließkommazahlen, \lstinline!np.PZERO! für die positive Darstellung.
 
-\nump{} unterstützt eine Vielzahl an mathematischen Funktionen, darunter unter
+NumPy unterstützt eine Vielzahl an mathematischen Funktionen, darunter unter
 anderem Folgende:
 
 \begin{itemize}
@@ -117,9 +117,10 @@ anderem Folgende:
   \item Multiplikationsfunktionen
   \item Funktionen zur Behandlung komplexer Zahlen
 \end{itemize}
-
-Die grundlegenden trigonometrischen Funktionen werden elementweise auf das Array
-angewendet:
+Diese speziellen Funktionen gibt es auch in der \lstinline!math!-Bibliothek. 
+Es wird empfohlen, die NumPy-Version davon zu verwenden, denn
+diese Funktionen werden elementweise auf das Array
+angewendet, so dass wir keine Schleifen implementieren müssen:
 \begin{lstlisting}
 >>> a = np.array([0, np.pi/6, np.pi/4, np.pi/3, np.pi/2])
 >>> np.sin(a)
@@ -131,14 +132,16 @@ angewendet:
 [0.00000000e+00, 5.77350269e-01, 1.00000000e+00,
 1.73205081e+00, 1.63312394e+16]
 \end{lstlisting}
+Diese Implementierung ist nicht nur für einen übersichtlichen Code nützlich, 
+sie ist auch extrem performant.
 
-Umrechung von Radians in Grad:
+Es gibt Umrechnungsfunktionen, zum Beispiel von Bogenmaß in Gradmaß:
 \begin{lstlisting}
 >>> a = np.array([0, np.pi/6, np.pi/4, np.pi/3, np.pi/2])
 >>> np.degrees(a)
 [ 0., 30., 45., 60., 90.]
 \end{lstlisting}
-Umrechung von Grad in Radians:
+und zurück:
 \begin{lstlisting}
 >>> a = np.array([ 0, 30, 45, 60, 90])
 >>> np.radians(a)
@@ -162,22 +165,18 @@ gerundet werden soll, angegeben:
 \end{lstlisting}
 
 Um alle Elemente eines Arrays aufzusummieren, wird die Funktion \\
-\lstinline!np.sum()! verwendet.
+\lstinline!np.sum()! verwendet. Analog gibt es dazu auch die Funktion 
+\lstinline!np.prod()! für Produkte:
 \begin{lstlisting}
 >>> a = np.array([1, 2, 3])
 >>> np.sum(a)
 6
-\end{lstlisting}
-Mit der Funktion \lstinline!np.prod()! können die Elemente der Liste miteinander
-multipliziert werden.
-\begin{lstlisting}
 >>> a = np.array([2, 3, 4])
 >>> np.prod(a)
 24
 \end{lstlisting}
 
-
-Sollten \lstinline!nan! (not a number) im Array vorkommen können, so kann
+Kommen \lstinline!nan! (not a number) im Array vor, so kann
 die Funktion \lstinline!np.nansum()! beziehungsweise \lstinline!np.nanprod()!
 verwendet werden. Bei der Funktion \lstinline!np.nansum()! werden
 \lstinline!nan! als \lstinline!0! interpretiert.
@@ -204,7 +203,7 @@ die restlichen Werte ebenfalls nach \lstinline!float64! konvertiert.
 \subsection{Erzeugen und Manipulieren von Arrays}
 \label{numpy:subsection:createAndManipulateArrays}
 
-Bislang haben die Beispiele in diesem Kapitel Arrays immer auf die folgende
+Bislang haben die Beispiele in diesem Abschnitt Arrays immer auf die folgende
 Weise erzeugt:
 \begin{lstlisting}
 >>> a = np.array([1,2,3])
@@ -212,25 +211,7 @@ Weise erzeugt:
 [1 2 3]
 \end{lstlisting}
 Hierbei wird zuerst eine \lstinline!list! mit konkreten Werten erzeugt und dann
-mittels \lstinline!np.array! in ein \nump{}-Array konvertiert.
-
-Neben Listen kann \lstinline!np.array! auch sämtliche anderen Sequences in
-Arrays umwandeln, zum Beispiel Tupel und Ranges:
-\begin{lstlisting}
->>> t = (1, 2, 3)
->>> np.array(t)
-[1, 2, 3]
->>> r = range(1,6)
->>> np.array(r)
-[1, 2, 3, 4, 5]
-\end{lstlisting}
-
-Numpy kann auch direkt ein Numpy-Array mit den gleichen Paramtern wie von
-\lstinline!range! erzeugen. Die Funktion hierzu heißt \lstinline!np.arange()!:
-\begin{lstlisting}
->>> np.arange(1,6)
-[1, 2, 3, 4, 5]
-\end{lstlisting}
+mittels \lstinline!np.array! in ein NumPy-Array konvertiert.
 
 Ebenso können mehrdimensionale Arrays erzeugt werden:
 \begin{lstlisting}
@@ -248,6 +229,52 @@ abgefragt werden.
 >>> b.shape
 (2, 2)
 \end{lstlisting}
+
+Neben Listen kann \lstinline!np.array! auch sämtliche anderen Sequences in
+Arrays umwandeln, zum Beispiel Tupel und Ranges:
+\begin{lstlisting}
+>>> t = (1, 2, 3)
+>>> np.array(t)
+[1, 2, 3]
+>>> r = range(1,6)
+>>> np.array(r)
+[1, 2, 3, 4, 5]
+\end{lstlisting}
+
+NumPy kann direkt ein NumPy-Array mit den gleichen Parametern wie mit
+\lstinline!range! bekannt erzeugen. Die Funktion hierzu heißt \lstinline!np.arange()!.
+Der Datentyp der erzeugten Folge wird durch die Datentypen der übergebenen
+Werte festgelegt:
+\begin{lstlisting}
+>>> np.arange(1,6)
+[1, 2, 3, 4, 5]
+>>> np.arange(1.0,6.0)
+[1., 2., 3., 4., 5.]
+\end{lstlisting}
+Diese Funktion erzeugt also eine Folge von Werten, beginnend mit dem ersten
+angegebenen Wert, ausschließlich des letzten Werts. Als Schrittweite wird
+als Default $1$ verwendet. Die Schrittweite kann man beim Aufruf der Funktion
+einstellen:
+\begin{lstlisting}
+>>> np.arange(start=1,stop=10, step=2)
+[1, 3, 5, 7, 9]
+\end{lstlisting}
+
+NumPy hat weitere nützliche Funktionen für die Erzeugung von Feldern.
+Sehr häufig benötigt man äquidistante Werte in einem Intervall.
+Dazu gibt es die Funktion \lstinline!linspace!:
+\begin{lstlisting}
+>>> np.linspace(0.0, 1.0, 11)
+[0. , 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1. ]
+\end{lstlisting}
+Soll die rechte Intervallgrenze nicht verwendet werden kann man
+dies an die Funktion übergeben:
+\begin{lstlisting}
+>>> np.linspace(0.0, 1.0, 10, endpoint=False)
+[0. , 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
+\end{lstlisting}
+
+
 
 \subsubsection{Leere Arrays}
 
@@ -269,7 +296,7 @@ Sequence mit den Längen der Dimensionen übergeben werden:
  [16., 25., 36.]]
 \end{lstlisting}
 
-Der Paramter bestimmt die Länge des Arrays, der Datentyp ist standardmäßig
+Der Parameter bestimmt die Länge des Arrays, der Datentyp ist standardmäßig
 \lstinline!float64!. Um ein \lstinline!int64!-Array zu erzeugen, wird das
 optionale Argument \lstinline!dtype=int! mit übergeben:
 \begin{lstlisting}
@@ -280,7 +307,7 @@ optionale Argument \lstinline!dtype=int! mit übergeben:
 \warning{Diese Funktion sollte mit Vorsicht genutzt werden, da die Werte manuell
 gesetzt werden müssen!}
 
-Analog zu \lstinline!np.empty()! kann bei den allen Funktionen zur Erzeugung
+Analog zu \lstinline!np.empty()! kann bei allen Funktionen zur Erzeugung
 von Arrays der Datentyp explizit angegeben werden:
 \begin{lstlisting}
 >>> np.array([1, 2], dtype=float)
@@ -293,10 +320,9 @@ Neben \lstinline!int! und \lstinline!float! kann bei Bedarf mit
 Integer beziehungsweise Float-Wertes im Speicher bestimmt werden.
 
 Besonders interessant ist hierbei \lstinline!np.float128!, ein Float mit
-Quadruple Precision und 128 Bit Länge. Damit können mindestens 34 Stellen
-Präzision gepeichert werden.\footnote{Für die Mantisse stehen beim
+Quadruple Precision und 128 Bit Länge. Für die Mantisse stehen beim
 \texttt{np.float64} nach IEEE 754 113 Bit zur Verfügung. Das ergibt aufgrund
-von $\log_{10}(2^{113})\approx34.016$ 34 Stellen.}
+von $\log_{10}(2^{113})\approx34.016$ 34 signifikaten Dezimalstellen.
 
 \subsubsection{Arrays mit Standardwerten}
 
@@ -321,9 +347,8 @@ Die Funktion \lstinline!np.full()! füllt ein Array mit dem angegebenen Wert:
 \end{lstlisting}
 
 \subsubsection{Arrays kopieren}
-
-Um ein vorhandenes Array zu kopieren, wird die \lstinline!.copy()!-Methode
-verwendet.
+Mit dem Zuweisungsoperator wird bei NumPy-Arrays lediglich eine Referenz auf das Array erzeugt,
+die Methode \lstinline!.copy()! erzeugt eine Objektkopie:
 \begin{lstlisting}
 >>> a = np.array([1,2,3])
 >>> b = a
@@ -334,8 +359,6 @@ verwendet.
 >>> print(a, b, c)
 [4 5 6] [4 5 6] [1 2 3]
 \end{lstlisting}
-Mit dem Zuweisungsoperator wird lediglich eine Referenz auf das Array erzeugt,
-die Methode \lstinline!.copy()! erzeugt eine Objektkopie.
 
 \subsubsection{Arrays persistieren}
 
@@ -343,7 +366,7 @@ Um Arrays zu persistieren, können die Funktionen \lstinline!np.save()! zum
 Speichern und \lstinline!np.load()! zum Auslesen verwendet werden. Das
 nachfolgende Beispiel simuliert dieses Verhalten mit der Klasse
 \lstinline!TemporaryFile! aus dem \lstinline!tmpfile!-Paket.
-\lstinline!TemporaryFile! verhählt sich wie eine normale Datei, mit dem
+\lstinline!TemporaryFile! verhält sich wie eine normale Datei, mit dem
 Unterschied, dass der Dateiinhalt im Arbeitsspeicher vorgehalten wird. Mit der
 Methode \lstinline!.seek(0)! auf ein \lstinline!TemporaryFile!-Objekt wird das
 Schließen und erneute Öffnen der Datei
@@ -405,7 +428,7 @@ Rückgabewerte der Funktion verändern kann.
 \subsubsection{Arrays aus iterierbaren Objekten erzeugen}
 
 Um ein beliebiges iterierbares Objekt in ein eindimensionales Array zu
-konvertieren, bietet \nump{} die Funktion \lstinline!np.fromiter()! an. Der zweite
+konvertieren, bietet NumPy die Funktion \lstinline!np.fromiter()! an. Der zweite
 Parameter gibt den Datentyp des Arrays an. Mit dem
 optionalen Parameter \lstinline!count! wird angegeben, wie viele Elemente aus
 dem Objekt übernommen werden sollen. Wird \lstinline!count! weggelassen, so
@@ -425,5 +448,49 @@ abbricht!}
 [ 0,  2,  4,  6,  8, 10, 12, 14, 16, 18]
 \end{lstlisting}
 
-\pagebreak
-\uebungTutorial{numpy_01}{numpy_02}
+\subsection{Lineare Algebra}
+Neben den Datenstruktoren enthält NumPy eine ganze Reihe von Funktionen
+für die lineare Algebra. Das Skalarprodukt und allgemein die Matrixmultiplikation
+ist mit der Funktion \lstinline!dot! implementiert.\randnotiz{Skalarprodukt}
+Im Beispiel berechnen wir das Skalarprodukt 
+\[
+\inner{\vtrs{0}{1}}{\vtrs{1}{2}} = 2.
+\]
+mit
+\begin{lstlisting}
+>>> u = np.arange(0,2)
+>>> v = np.arange(1,3)
+>>> np.dot(u,v)
+2
+\end{lstlisting}
+Das Matrixprodukt\randnotiz{Matrixprodukt}
+\[
+\begin{pmatrix}1&0\\0&1\end{pmatrix} \cdot \begin{pmatrix}4&1\\2&2\end{pmatrix} = \begin{pmatrix} 4&1\\2&2\end{pmatrix}
+\]
+berechnen wir ebenfalls mit \lstinline!np.dot!:
+\begin{lstlisting}
+>>> a = [[1, 0], [0, 1]]
+>>> b = [[4, 1], [2, 2]]
+>>> np.dot(a, b)
+array([[4, 1],
+       [2, 2]])
+\end{lstlisting}
+In NumPy finden wir sehr viele Algorithmen\randnotiz{Lineare\\Gleichungs-\\systeme} aus der linearen Algebra. 
+Wir lösen das lineare Gleichungssystem
+\begin{align*}
+x + 2y &= 5,\\
+3x + 4y &= 11
+\end{align*}
+mit Hilfe der Funktion \lstinline!np.linalg.solve!:
+\begin{lstlisting}
+>>> A = np.array([[1,2],[3,4]])
+>>> b = np.array([[5],[11]])
+>>> np.linalg.solve(A,b)
+[[1.]
+ [2.]]
+>>> np.dot(A,x) # Probe
+ [[ 5.]
+ [11.]]
+\end{lstlisting}
+
+\uebungTutorial{numpy_01}{numpy_02}{numpy_03}

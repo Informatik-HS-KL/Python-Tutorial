@@ -1,0 +1,19 @@
+Wir besetzen die Koeffizientenmatrix und die rechte Seite und verwenden
+\lstinline$np.linalg.solve$ für die Lösung.
+Mit Hilfe von \lstinline$np.dot$ machen wir eine Probe.
+
+\begin{lstlisting}[mathescape]
+>>> A = np.array([[-1.0, 1.0, 1.0], [1.0, -3.0, -2.0], 
+       [5.0, 1.0, 4.0]])
+>>> b = np.array([[0.0], [5.0], [3.0]])
+>>> np.linalg.solve(A, b)
+[[-1.]
+ [-4.]
+ [ 3.]]
+>>> np.dot(A,x)
+[[-4.4408921e-16]
+ [ 5.0000000e+00]
+ [ 3.0000000e+00]]
+\end{lstlisting}
+Die Ausgabe bei der Probe enthält Rundungsfehler auf Grund der Fließkommaarithmetik.
+Aber innerhalb der verwendet Genauigkeit haben wir eine Lösung berechnet.
