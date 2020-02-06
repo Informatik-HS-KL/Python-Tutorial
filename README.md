@@ -1,6 +1,6 @@
 # Python-Tutorial
 
-Der aktuelle Stand im Branch *Develop* stammt aus dem Sommersemester 2019. Das aus LaTeX erstellte PDF ist im Wurzelverzeichnis des Repos zu finden!
+Der aktuelle Stand im Branch *Develop* stammt aus dem Wintersemester 2019/20. Das aus LaTeX erstellte PDF ist im Wurzelverzeichnis des Repos zu finden!
 
 # Die Lehrveranstaltung
 
