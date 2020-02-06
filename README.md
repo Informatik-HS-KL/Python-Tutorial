@@ -1,6 +1,10 @@
 # Python-Tutorial
 
-Der aktuelle Stand im Branch *Develop* stammt aus dem Sommersemester 2019. Das aus LaTeX erstellte PDF ist im Wurzelverzeichnis des Repos zu finden!
+Ein Python-Tutorial von Studierenden aus dem Masterstudiengang Informatik der Hochschule Kaiserslautern für Studierende.
+
+Der aktuelle Stand mit dem Tag "WS1920" entspricht allen Beiträgen der Autoren zum Ende des Wintersemesters 2019/20. In beiden Branches "master" und "develop" finden Sie neben den TeX-Quellen auch das aktuelle PDF-Dokument, so dass Sie direkt unser Ergebnis lesen können.
+
+Ganz neu hinzugekommen ist ein Abschnitt zu SymPy!
 
 # Die Lehrveranstaltung
 
