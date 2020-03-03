@@ -27,7 +27,7 @@
 *.pdf
 
 ## Exclude the PDF document
-pythonTutorial.pdf
+!pythonTutorial.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
 .pdf
