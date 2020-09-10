@@ -8,7 +8,7 @@ In diesem Abschnitt sehen wir uns die verschiedenen Arten von Übergabeparametern
 
 def myFunction(x):
     x = 1
-  
+
 x = 2
 myFunction(x)
 print(x)
@@ -17,22 +17,28 @@ print(x)
 # 2
 \end{lstlisting}
 
-Mittels Codes (\ref{inputParameterFunctions:lst:primitiveParameter}) wird der Wert '2' ausgedruckt. Aus dem vorherigen Abschnitt über Gültigkeitsbereiche wissen wir, dass es sich hierbei - trotz gleichem Namen - um zwei verschiedene Variablen handelt. Eine Integer-Variable im lokalen und eine im globalen Gültigkeitsbereich. Dies gilt jedoch nur für primitive Datentypen, für nicht-primitive Datentypen verhält es sich anders.
+Dieser Code 
+%(\ref{inputParameterFunctions:lst:primitiveParameter}) 
+führt dazu, dass der Wert '2' ausgedruckt wird. 
+Aus dem vorherigen Abschnitt über Gültigkeitsbereiche wissen wir, dass es sich hierbei - trotz gleichem Namen - --um zwei verschiedene Variablen handelt. 
+Eine Integer-Variable im lokalen und eine im globalen Gültigkeitsbereich. Dies gilt jedoch nur für primitive Datentypen, für nicht-primitive Datentypen verhält es sich anders:
 
 \begin{lstlisting}[language=Python, label=inputParameterFunctions:lst:nonPrimitiveParameter]
 # Übergabe eines nicht-primitiven Datentyps
 
 def myFunction(x)
     x[0] = 100
-  
+
 x = [0,1,2]
 myFunction(x)
 print(x)
 \end{lstlisting}
 
-Da es sich hier (\ref{inputParameterFunctions:lst:nonPrimitiveParameter}) nicht um einen primitiven Datentyp handelt, stellt der Input-Parameter eine Referenz dar, womit der Wert von x auch in der Methode geändert wird. Beim Ausgeben erhalten wir: \lstinline$[100,1,2]$.
+Da es sich hier 
+%(\ref{inputParameterFunctions:lst:nonPrimitiveParameter}) 
+nicht um einen primitiven Datentyp handelt, stellt der Input-Parameter eine Referenz dar, womit der Wert von x auch in der Methode geändert wird. Beim Ausgeben erhalten wir: \lstinline$[100,1,2]$.
 
-Es ist wichtig, sich dieses Verhalten zu merken, da beim objekt-orientierten Programmieren sonst Fehler auftreten.
+Es ist wichtig, sich dieses Verhalten klar zu machen, da beim objekt-orientierten Programmieren sonst Fehler auftreten.
 
 \kontrollfrage{
 	\item[\kontroll] Unter welcher Voraussetzung führen Änderungen eines Übergabeparameters innerhalb einer Funktion zu Änderungen außerhalb?
@@ -93,9 +99,9 @@ def average(*numbers):
     value = 1
     for number in numbers:
         value = value * number
-    
+
     value = value / len(numbers)
-    # durch die Anzahl an Parametern 
+    # durch die Anzahl an Parametern
     return value
 
 result = average(5, 5, 10, 8, 2)
